@@ -13,8 +13,11 @@
 
 namespace OptionGreeks
 {
-    double calcDelta(double s0, double k, double r, double vol, double T);
+    double calcDeltaBlackScholes(double s0, double k, double r, double vol, double T);
     double calcDeltaNumerically(double s0, double k, double r, double vol, double T);
+    double calcThetaCallBlackScholes(double s0, double k, double r, double vol, double T);
+    double calcThetaPutBlackScholes(double s0, double k, double r, double vol, double T);
+    double calcThetaNumerically(double s0, double k, double r, double vol, double T);
 }
 
 #endif /* defined(__QuantLib__OptionGreeks__) */

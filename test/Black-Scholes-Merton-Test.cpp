@@ -6,7 +6,7 @@
 TEST_CASE("Black-Scholes-Merton model")
 {
     // Note: All result values are obtained from examples given in chapter
-    // 14 of Options, Future, and Derivitives 8th edition
+    // 14 of Options, Future, and Derivatives 8th edition
     
     
     //-------------------------------NO DIVIDENDS-------------------------------
@@ -20,7 +20,7 @@ TEST_CASE("Black-Scholes-Merton model")
         double duration = 0.5;
         
         double result = 4.75942; // Value is obtained from example given in chapter
-                                 // 14 of Options, Future, and Derivitives 8th edition
+                                 // 14 of Options, Future, and Derivatives 8th edition
         
         double callOption = BlackScholesMerton::valueCallOption(stockPrice, strikePrice, risklessRate, vol, duration);
         
@@ -36,7 +36,7 @@ TEST_CASE("Black-Scholes-Merton model")
         double duration = 0.3846;
         
         double result = 2.4005; // Value is obtained from example given in chapter 18
-                                // of Options, Future, and Derivitives 8th edition
+                                // of Options, Future, and Derivatives 8th edition
         
         double callOption = BlackScholesMerton::valueCallOption(stockPrice, strikePrice, risklessRate, vol, duration);
 
@@ -71,7 +71,7 @@ TEST_CASE("Black-Scholes-Merton model")
         std::vector<double> payment{1.0/6.0,5.0/12.0};
         
         double result = 3.67123; // Value is obtained from example given in chapter
-                                 // 14 of Options, Future, and Derivitives 8th edition
+                                 // 14 of Options, Future, and Derivatives 8th edition
         
         double callOption = BlackScholesMerton::valueCallOption(stockPrice, strikePrice,
                                                                 risklessRate, vol, duration,
@@ -90,7 +90,7 @@ TEST_CASE("Black-Scholes-Merton model")
         double optionValue = 1.875;
         
         double result = 0.2345;   // Value is obtained from example given in chapter
-                                  // 14 of Options, Future, and Derivitives 8th edition
+                                  // 14 of Options, Future, and Derivatives 8th edition
         
         
         // Keep track of performance to analyze vs. other methods of finding implied vol
@@ -117,7 +117,7 @@ TEST_CASE("Black-Scholes-Merton model")
         double optionValue = 1.875;
         
         double result = 0.23449;   // Value is obtained from example given in chapter
-                                   // 14 of Options, Future, and Derivitives 8th edition
+                                   // 14 of Options, Future, and Derivatives 8th edition
         
         
         // Keep track of performance to analyze vs. other methods of finding implied vol
@@ -143,7 +143,7 @@ TEST_CASE("Black-Scholes-Merton model")
         double optionValue = 10.5;
         
         double result = 0.201355;   // Value is obtained from QuantStart
-                                   // http://www.quantstart.com/articles/Implied-Volatility-in-C-using-Template-Functions-and-Interval-Bisection
+                                    // http://www.quantstart.com/articles/Implied-Volatility-in-C-using-Template-Functions-and-Interval-Bisection
         
         
         // Keep track of performance to analyze vs. other methods of finding implied vol
@@ -169,7 +169,7 @@ TEST_CASE("Black-Scholes-Merton model")
         double optionValue = 1.875;
         
         double result = 0.23449;   // Value is obtained from example given in chapter
-                                   // 14 of Options, Future, and Derivitives 8th edition
+                                   // 14 of Options, Future, and Derivatives 8th edition
         
         
         // Keep track of performance to analyze vs. other methods of finding implied vol
@@ -219,7 +219,7 @@ TEST_CASE("Black-Scholes-Merton model")
         double duration = 0.5;
         
         double result = 0.7693; // Value is obtained from example given in chapter
-        // 14 of Options, Future, and Derivitives 8th edition
+                                // 14 of Options, Future, and Derivatives 8th edition
         
         double d1 = BlackScholesMerton::calcD1(stockPrice, strikePrice, risklessRate, vol, duration);
         
@@ -235,7 +235,7 @@ TEST_CASE("Black-Scholes-Merton model")
         double duration = 0.3846;
         
         double result = 0.054173; // Value is obtained from example given in chapter 18
-                                // of Options, Future, and Derivitives 8th edition
+                                  // of Options, Future, and Derivatives 8th edition
         
         double d1 = BlackScholesMerton::calcD1(stockPrice, strikePrice, risklessRate, vol, duration);
         

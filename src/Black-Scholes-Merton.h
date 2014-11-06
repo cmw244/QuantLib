@@ -39,7 +39,7 @@
 // Class implemented as a singleton class for design experience
 namespace BlackScholesMerton
 {
-    constexpr static double MAX_ITERATIONS = 1000000; // Used to calculate implied volatility
+    constexpr static int MAX_ITERATIONS = 1000000; // Used to calculate implied volatility
     constexpr static double TOLERANCE = 0.0001;  // As long as we are this close we will accept it
     
     const boost::math::normal_distribution<> normal(0.0,1.0); // Standard normal u = 0.0 and variance = 1.0

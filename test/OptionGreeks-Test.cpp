@@ -14,7 +14,7 @@
 
 TEST_CASE("Options Greeks")
 {
-    SECTION("Calc delta on European option")
+    SECTION("Calc delta Black-Scholes-Merton on European option")
     {
         double s0 = 49;
         double k = 50;
@@ -23,16 +23,16 @@ TEST_CASE("Options Greeks")
         double T = 0.3846;
         
         double result = 0.5216; // Value is derived from chapter 18 of Options, Future,
-                               // and other Derivitives 8th edition
+                                // and other Derivatives 8th edition
         auto start = std::chrono::system_clock::now();
-        double delta = OptionGreeks::calcDelta(s0, k, r, vol, T);
+        double delta = OptionGreeks::calcDeltaBlackScholes(s0, k, r, vol, T);
         auto end = std::chrono::system_clock::now();
         
         REQUIRE(Utilities::closeEnough(delta, result));
         
         auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
 
-        std::cout << "Delta took " << elapsed.count() / Utilities::NANO_TO_MILLI << " milliseconds" << std::endl;
+        std::cout << "Delta Black-Scholes-Merton took " << elapsed.count() / Utilities::NANO_TO_MILLI << " milliseconds" << std::endl;
     }
     
     SECTION("Calc delta numerically on European option")
@@ -44,7 +44,7 @@ TEST_CASE("Options Greeks")
         double T = 0.3846;
         
         double result = 0.5216; // Value is derived from chapter 18 of Options, Future,
-        // and other Derivitives 8th edition
+                                // and other Derivatives 8th edition
         
         auto start = std::chrono::system_clock::now();
         double delta = OptionGreeks::calcDeltaNumerically(s0, k, r, vol, T);
@@ -54,6 +54,71 @@ TEST_CASE("Options Greeks")
         
         auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
         std::cout << "Delta numerically took " << elapsed.count() / Utilities::NANO_TO_MILLI << " milliseconds" << std::endl;
+    }
+    
+    SECTION("Calc theta Black-Scholes-Merton on European call option")
+    {
+        double s0 = 49;
+        double k = 50;
+        double vol = 0.2;
+        double r = 0.05;
+        double T = 0.3846;
+        
+        double result = -4.30539; // Value is derived from chapter 18 of Options, Future,
+                                  // and other Derivatives 8th edition
+        
+        auto start = std::chrono::system_clock::now();
+        double theta = OptionGreeks::calcThetaCallBlackScholes(s0, k, r, vol, T);
+        auto end = std::chrono::system_clock::now();
+        
+        REQUIRE(Utilities::closeEnough(theta, result));
+        
+        auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+        std::cout << "Theta call Black-Scholes-Merton took " << elapsed.count() / Utilities::NANO_TO_MILLI << " milliseconds" << std::endl;
+    }
+    
+    SECTION("Calc theta Black-Scholes-Merton on European put option")
+    {
+        double s0 = 49;
+        double k = 50;
+        double vol = 0.2;
+        double r = 0.05;
+        double T = 0.3846;
+        
+        double result = -1.853; // Value is derived from chapter 18 of Options, Future,
+                                // and other Derivatives 8th edition
+        
+        auto start = std::chrono::system_clock::now();
+        double theta = OptionGreeks::calcThetaPutBlackScholes(s0, k, r, vol, T);
+        auto end = std::chrono::system_clock::now();
+        
+        REQUIRE(Utilities::closeEnough(theta, result));
+        
+        auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+        std::cout << "Theta put Black-Scholes-Merton took " << elapsed.count() / Utilities::NANO_TO_MILLI << " milliseconds" << std::endl;
+    }
+    
+    SECTION("Calc theta numerically on European option")
+    {
+        double s0 = 49;
+        double k = 50;
+        double vol = 0.2;
+        double r = 0.05;
+        double T = 0.3846;
+        
+        double result = 4.30539; // Note: Theta is usually negative, but we are verifying numerical
+                                 // solution is the right number, if we were to use this we would
+                                 // both adjust its sign and duration convention (either theta per
+                                 // calendar day or
+        
+        auto start = std::chrono::system_clock::now();
+        double theta = OptionGreeks::calcThetaNumerically(s0, k, r, vol, T);
+        auto end = std::chrono::system_clock::now();
+        
+        REQUIRE(Utilities::closeEnough(theta, result));
+        
+        auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+        std::cout << "Theta numerically took " << elapsed.count() / Utilities::NANO_TO_MILLI << " milliseconds" << std::endl;
     }
     
 }

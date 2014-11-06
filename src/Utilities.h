@@ -13,7 +13,7 @@
 
 namespace Utilities
 {
-    const double NANO_TO_MILLI = 100000.0;
+    const double NANO_TO_MILLI = 1000000.0;
     
     bool closeEnough(double a, double b);
     bool isWithin(double a, double b, double threshold);
