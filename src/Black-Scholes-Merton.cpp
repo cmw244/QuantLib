@@ -146,7 +146,7 @@ double BlackScholesMerton::valueImpliedVolatilityNewtonRaphson(function<double (
                                                                double s0, double k, double r, double T, double c)
 {
     auto option = [&] (double x) -> double { return func2(s0,k,r,x,T,0,{}); };
-    auto vega = [&] (double x) -> double { return differentiate(option, x); };
+    auto vega = [&] (double x) -> double { return Utilities::differentiate(option, x); };
     
     // Start with volatility of 15%
     double v = 0.15;

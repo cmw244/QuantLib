@@ -23,6 +23,6 @@ double OptionGreeks::calcDeltaNumerically(double s0, double k, double r, double 
 {
     auto func = [&] (double x) -> double { return BlackScholesMerton::valueCallOption(x, k, r, vol, T); };
     
-    return differentiate(func, s0);
+    return Utilities::differentiate(func, s0);
     
 }

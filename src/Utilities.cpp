@@ -37,7 +37,7 @@ bool Utilities::isWithin(double a, double b, double threshold)
     }
 }
 
-double differentiate(std::function<double (double)> func, double x)
+double Utilities::differentiate(std::function<double (double)> func, double x)
 {
     double EPS = 0.001;
     double b = func(x + EPS);
