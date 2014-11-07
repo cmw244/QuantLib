@@ -14,6 +14,8 @@
 
 TEST_CASE("Options Greeks")
 {
+    
+    /*--------------------------------Delta---------------------------------------*/
     SECTION("Calc delta Black-Scholes-Merton on European option")
     {
         double s0 = 49;
@@ -55,6 +57,8 @@ TEST_CASE("Options Greeks")
         auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
         std::cout << "Delta numerically took " << elapsed.count() / Utilities::NANO_TO_MILLI << " milliseconds" << std::endl;
     }
+    
+    /*--------------------------------Theta---------------------------------------*/
     
     SECTION("Calc theta Black-Scholes-Merton on European call option")
     {
@@ -140,6 +144,9 @@ TEST_CASE("Options Greeks")
         REQUIRE(Utilities::closeEnough(thetaPut - thetaCall, diff));
     }
     
+    /*--------------------------------Gamma---------------------------------------*/
+
+    
     SECTION("Calc gamma Black-Scholes-Merton on European option")
     {
         double s0 = 49;
@@ -180,6 +187,9 @@ TEST_CASE("Options Greeks")
         auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
         std::cout << "Gamma numerically took " << elapsed.count() / Utilities::NANO_TO_MILLI << " milliseconds" << std::endl;
     }
+    
+    /*--------------------------------Vega---------------------------------------*/
+
     
     SECTION("Calc vega Black-Scholes-Merton on European option")
     {

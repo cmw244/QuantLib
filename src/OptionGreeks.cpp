@@ -69,6 +69,7 @@ double OptionGreeks::calcThetaNumerically(double s0, double k, double r, double 
 
 
 /*--------------------------------Gamma---------------------------------------*/
+
 double OptionGreeks::calcGammaBlackScholes(double s0, double k, double r, double vol, double T)
 {
     double d1 = BlackScholesMerton::calcD1(s0, k, r, vol, T);
@@ -87,6 +88,7 @@ double OptionGreeks::calcGammaNumerically(double s0, double k, double r, double 
 
 
 /*--------------------------------Vega----------------------------------------*/
+
 double OptionGreeks::calcVegaBlackScholes(double s0, double k, double r, double vol, double T)
 {
     double d1 = BlackScholesMerton::calcD1(s0, k, r, vol, T);
