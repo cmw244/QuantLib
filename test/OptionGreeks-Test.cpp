@@ -121,4 +121,106 @@ TEST_CASE("Options Greeks")
         std::cout << "Theta numerically took " << elapsed.count() / Utilities::NANO_TO_MILLI << " milliseconds" << std::endl;
     }
     
+    SECTION("Relationship between calls and puts when calculating theta")
+    {
+        double s0 = 49;
+        double k = 50;
+        double vol = 0.2;
+        double r = 0.05;
+        double T = 0.3846;
+        
+        double thetaCall = OptionGreeks::calcThetaCallBlackScholes(s0, k, r, vol, T);
+        double thetaPut = OptionGreeks::calcThetaPutBlackScholes(s0, k, r, vol, T);
+        
+        // Since N(-d2) == 1 - N(d2), the theta of a put exceeds the call
+        // by exactly rKe^-rt
+        
+        double diff = r * k * exp(-1 * r * T);
+        
+        REQUIRE(Utilities::closeEnough(thetaPut - thetaCall, diff));
+    }
+    
+    SECTION("Calc gamma Black-Scholes-Merton on European option")
+    {
+        double s0 = 49;
+        double k = 50;
+        double vol = 0.2;
+        double r = 0.05;
+        double T = 0.3846;
+        
+        double result = 0.065545; // Value is derived from chapter 18 of Options, Future,
+                                  // and other Derivatives 8th edition
+        
+        auto start = std::chrono::system_clock::now();
+        double gamma = OptionGreeks::calcGammaBlackScholes(s0, k, r, vol, T);
+        auto end = std::chrono::system_clock::now();
+        REQUIRE(Utilities::closeEnough(gamma, result));
+        
+        auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+        std::cout << "Gamma Black-Scholes-Merton took " << elapsed.count() / Utilities::NANO_TO_MILLI << " milliseconds" << std::endl;
+    }
+    
+    SECTION("Calc gamma numerically on European option")
+    {
+        double s0 = 49;
+        double k = 50;
+        double vol = 0.2;
+        double r = 0.05;
+        double T = 0.3846;
+        
+        double result = 0.065545; // Value is derived from chapter 18 of Options, Future,
+                                  // and other Derivatives 8th edition
+        
+        auto start = std::chrono::system_clock::now();
+        double gamma = OptionGreeks::calcGammaNumerically(s0, k, r, vol, T);
+        auto end = std::chrono::system_clock::now();
+        
+        REQUIRE(Utilities::closeEnough(gamma, result));
+        
+        auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+        std::cout << "Gamma numerically took " << elapsed.count() / Utilities::NANO_TO_MILLI << " milliseconds" << std::endl;
+    }
+    
+    SECTION("Calc vega Black-Scholes-Merton on European option")
+    {
+        double s0 = 49;
+        double k = 50;
+        double vol = 0.2;
+        double r = 0.05;
+        double T = 0.3846;
+        
+        double result = 12.1;  // Value is derived from chapter 18 of Options, Future,
+                               // and other Derivatives 8th edition
+        
+        auto start = std::chrono::system_clock::now();
+        double gamma = OptionGreeks::calcVegaBlackScholes(s0, k, r, vol, T);
+        auto end = std::chrono::system_clock::now();
+        
+        REQUIRE(Utilities::closeEnough(gamma, result));
+        
+        auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+        std::cout << "Vega Black-Scholes-Merton took " << elapsed.count() / Utilities::NANO_TO_MILLI << " milliseconds" << std::endl;
+    }
+    
+    SECTION("Calc vega numerically on European option")
+    {
+        double s0 = 49;
+        double k = 50;
+        double vol = 0.2;
+        double r = 0.05;
+        double T = 0.3846;
+        
+        double result = 12.1; // Value is derived from chapter 18 of Options, Future,
+                              // and other Derivatives 8th edition
+        
+        auto start = std::chrono::system_clock::now();
+        double gamma = OptionGreeks::calcVegaNumerically(s0, k, r, vol, T);
+        auto end = std::chrono::system_clock::now();
+        
+        REQUIRE(Utilities::closeEnough(gamma, result));
+        
+        auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+        std::cout << "Vega numerically took " << elapsed.count() / Utilities::NANO_TO_MILLI << " milliseconds" << std::endl;
+    }
+    
 }

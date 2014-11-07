@@ -12,7 +12,7 @@
 // Used to allow some precision error in results
 bool Utilities::closeEnough(double a, double b)
 {
-    const double verySmallNumber = 0.0001;
+    const double verySmallNumber = 0.001;
     
     if ( b == 0 )
     {

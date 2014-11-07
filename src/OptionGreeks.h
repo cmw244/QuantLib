@@ -18,6 +18,10 @@ namespace OptionGreeks
     double calcThetaCallBlackScholes(double s0, double k, double r, double vol, double T);
     double calcThetaPutBlackScholes(double s0, double k, double r, double vol, double T);
     double calcThetaNumerically(double s0, double k, double r, double vol, double T);
+    double calcGammaBlackScholes(double s0, double k, double r, double vol, double T);
+    double calcGammaNumerically(double s0, double k, double r, double vol, double T);
+    double calcVegaBlackScholes(double s0, double k, double r, double vol, double T);
+    double calcVegaNumerically(double s0, double k, double r, double vol, double T);
 }
 
 #endif /* defined(__QuantLib__OptionGreeks__) */

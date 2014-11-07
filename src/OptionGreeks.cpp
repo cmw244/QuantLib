@@ -68,9 +68,37 @@ double OptionGreeks::calcThetaNumerically(double s0, double k, double r, double 
 }
 
 
-
-
 /*--------------------------------Gamma---------------------------------------*/
+double OptionGreeks::calcGammaBlackScholes(double s0, double k, double r, double vol, double T)
+{
+    double d1 = BlackScholesMerton::calcD1(s0, k, r, vol, T);
+    double numerator = nPrime(d1);
+    double denominator = s0 * vol * sqrt(T);
+    
+    return numerator / denominator;
+}
+
+double OptionGreeks::calcGammaNumerically(double s0, double k, double r, double vol, double T)
+{
+    auto func = [&] (double x) -> double { return calcDeltaNumerically(x, k, r, vol, T); };
+    
+    return Utilities::differentiate(func, s0);
+}
+
+
 /*--------------------------------Vega----------------------------------------*/
-/*--------------------------------Delta---------------------------------------*/
+double OptionGreeks::calcVegaBlackScholes(double s0, double k, double r, double vol, double T)
+{
+    double d1 = BlackScholesMerton::calcD1(s0, k, r, vol, T);
+    
+    return s0 * sqrt(T) * nPrime(d1);
+}
+
+double OptionGreeks::calcVegaNumerically(double s0, double k, double r, double vol, double T)
+{
+    auto func = [&] (double x) -> double { return BlackScholesMerton::valueCallOption(s0, k, r, x, T); };
+    
+    return Utilities::differentiate(func, vol);
+}
+
 
