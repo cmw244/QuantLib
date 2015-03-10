@@ -103,4 +103,27 @@ double OptionGreeks::calcVegaNumerically(double s0, double k, double r, double v
     return Utilities::differentiate(func, vol);
 }
 
+/*---------------------------------Rho----------------------------------------*/
 
+double OptionGreeks::calcRhoCallBlackScholes(double s0, double k, double r, double vol, double T)
+{
+    double d1 = BlackScholesMerton::calcD1(s0,k,r,vol,T);
+    double d2 = d1 - (vol * sqrt(T));
+    
+    return k * T * exp(-1 * r * T ) * boost::math::cdf(BlackScholesMerton::normal, d2);
+}
+
+double OptionGreeks::calcRhoPutBlackScholes(double s0, double k, double r, double vol, double T)
+{
+    double d1 = BlackScholesMerton::calcD1(s0,k,r,vol,T);
+    double d2 = d1 - (vol * sqrt(T));
+    
+    return -1 * k * T * exp(-1 * r * T ) * boost::math::cdf(BlackScholesMerton::normal, -d2);
+}
+
+double OptionGreeks::calcRhoNumerically(double s0, double k, double r, double vol, double T)
+{
+    auto func = [&] (double x) -> double { return BlackScholesMerton::valueCallOption(s0, k, x, vol, T); };
+    
+    return Utilities::differentiate(func, r);
+}

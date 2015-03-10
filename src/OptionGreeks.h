@@ -26,6 +26,10 @@ namespace OptionGreeks
     /*--------------------------------Vega---------------------------------------*/
     double calcVegaBlackScholes(double s0, double k, double r, double vol, double T);
     double calcVegaNumerically(double s0, double k, double r, double vol, double T);
+    /*---------------------------------Rho----------------------------------------*/
+    double calcRhoCallBlackScholes(double s0, double k, double r, double vol, double T);
+    double calcRhoPutBlackScholes(double s0, double k, double r, double vol, double T);
+    double calcRhoNumerically(double s0, double k, double r, double vol, double T);
 }
 
 #endif /* defined(__QuantLib__OptionGreeks__) */

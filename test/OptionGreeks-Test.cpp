@@ -203,10 +203,10 @@ TEST_CASE("Options Greeks")
                                // and other Derivatives 8th edition
         
         auto start = std::chrono::system_clock::now();
-        double gamma = OptionGreeks::calcVegaBlackScholes(s0, k, r, vol, T);
+        double vega = OptionGreeks::calcVegaBlackScholes(s0, k, r, vol, T);
         auto end = std::chrono::system_clock::now();
         
-        REQUIRE(Utilities::closeEnough(gamma, result));
+        REQUIRE(Utilities::closeEnough(vega, result));
         
         auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
         std::cout << "Vega Black-Scholes-Merton took " << elapsed.count() / Utilities::NANO_TO_MILLI << " milliseconds" << std::endl;
@@ -224,13 +224,55 @@ TEST_CASE("Options Greeks")
                               // and other Derivatives 8th edition
         
         auto start = std::chrono::system_clock::now();
-        double gamma = OptionGreeks::calcVegaNumerically(s0, k, r, vol, T);
+        double vega = OptionGreeks::calcVegaNumerically(s0, k, r, vol, T);
         auto end = std::chrono::system_clock::now();
         
-        REQUIRE(Utilities::closeEnough(gamma, result));
+        REQUIRE(Utilities::closeEnough(vega, result));
         
         auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
         std::cout << "Vega numerically took " << elapsed.count() / Utilities::NANO_TO_MILLI << " milliseconds" << std::endl;
+    }
+    
+    SECTION("Calc rho Black-Scholes-Merton on European call option")
+    {
+        double s0 = 49;
+        double k = 50;
+        double vol = 0.2;
+        double r = 0.05;
+        double T = 0.3846;
+        
+        double result = 8.9066; // Value is derived from chapter 18 of Options, Future,
+                              // and other Derivatives 8th edition
+        
+        auto start = std::chrono::system_clock::now();
+        double rho = OptionGreeks::calcRhoCallBlackScholes(s0, k, r, vol, T);
+        auto end = std::chrono::system_clock::now();
+
+        REQUIRE(Utilities::closeEnough(rho, result));
+        
+        auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+        std::cout << "Rho Black-Scholes-Merton took " << elapsed.count() / Utilities::NANO_TO_MILLI << " milliseconds" << std::endl;
+    }
+    
+    SECTION("Calc rho numerically on European option")
+    {
+        double s0 = 49;
+        double k = 50;
+        double vol = 0.2;
+        double r = 0.05;
+        double T = 0.3846;
+        
+        double result = 8.9066; // Value is derived from chapter 18 of Options, Future,
+        // and other Derivatives 8th edition
+        
+        auto start = std::chrono::system_clock::now();
+        double rho = OptionGreeks::calcRhoNumerically(s0, k, r, vol, T);
+        auto end = std::chrono::system_clock::now();
+
+        REQUIRE(Utilities::closeEnough(rho, result));
+        
+        auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+        std::cout << "Rho numerically took " << elapsed.count() / Utilities::NANO_TO_MILLI << " milliseconds" << std::endl;
     }
     
 }
